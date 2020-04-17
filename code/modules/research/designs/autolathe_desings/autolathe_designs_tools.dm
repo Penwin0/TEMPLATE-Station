@@ -155,3 +155,4 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 100, MAT_GLASS = 200)
 	build_path = /obj/item/reagent_containers/spray
+	category = list("initial", "Tools")
