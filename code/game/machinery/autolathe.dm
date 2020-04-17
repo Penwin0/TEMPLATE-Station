@@ -163,17 +163,17 @@
 			var/coeff = (is_stack ? 1 : prod_coeff) //stacks are unaffected by production coefficient
 			var/metal_cost = being_built.materials[MAT_METAL]
 			var/glass_cost = being_built.materials[MAT_GLASS]
-			var/platic_cost = being_built.materials[MAT_PLASTIC]
+			var/plastic_cost = being_built.materials[MAT_PLASTIC]
 
 			var/power = max(2000, (metal_cost+glass_cost)*multiplier/5)
 
 			GET_COMPONENT(materials, /datum/component/material_container)
-			if((materials.amount(MAT_METAL) >= metal_cost*multiplier*coeff) && (materials.amount(MAT_GLASS) >= glass_cost*multiplier*coeff) && (materials.amount(MAT_PLASTIC)))
+			if((materials.amount(MAT_METAL) >= metal_cost*multiplier*coeff) && (materials.amount(MAT_GLASS) >= glass_cost*multiplier*coeff) && (materials.amount(MAT_PLASTIC) >= plastic_cost*multiplier*coeff))
 				busy = TRUE
 				use_power(power)
 				icon_state = "autolathe_n"
 				var/time = is_stack ? 32 : 32*coeff*multiplier
-				addtimer(CALLBACK(src, .proc/make_item, power, metal_cost, glass_cost, multiplier, coeff, is_stack), time)
+				addtimer(CALLBACK(src, .proc/make_item, power, metal_cost, glass_cost, plastic_cost, multiplier, coeff, is_stack), time)
 
 		if(href_list["search"])
 			matching_designs.Cut()
@@ -190,7 +190,7 @@
 
 	return
 
-/obj/machinery/autolathe/proc/make_item(power, metal_cost, glass_cost, multiplier, coeff, is_stack)
+/obj/machinery/autolathe/proc/make_item(power, metal_cost, glass_cost, plastic_cost, multiplier, coeff, is_stack)
 	GET_COMPONENT(materials, /datum/component/material_container)
 	var/atom/A = drop_location()
 	use_power(power)
