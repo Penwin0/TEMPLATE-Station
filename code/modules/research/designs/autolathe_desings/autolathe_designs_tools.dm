@@ -148,3 +148,10 @@
 	materials = list(MAT_METAL = 150, MAT_GLASS = 150)
 	build_path = /obj/item/geiger_counter
 	category = list("initial", "Tools")
+	
+/datum/design/spraybottle
+	name = "Spray Bottle"
+	id = "spraybottle"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 100, MAT_GLASS = 200)
+	build_path = /obj/item/reagent_containers/spray
