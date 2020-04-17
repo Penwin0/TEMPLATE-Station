@@ -46,7 +46,7 @@
 							)
 
 /obj/machinery/autolathe/Initialize()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), 0, TRUE, null, null, CALLBACK(src, .proc/AfterMaterialInsert))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASTIC), 0, TRUE, null, null, CALLBACK(src, .proc/AfterMaterialInsert))
 	. = ..()
 
 	wires = new /datum/wires/autolathe(src)
@@ -129,6 +129,8 @@
 				flick("autolathe_o",src)//plays metal insertion animation
 			if (MAT_GLASS)
 				flick("autolathe_r",src)//plays glass insertion animation
+			if (MAT_PLASTIC)
+				flick("autolathe_r",src)//need animation for plastic insertion
 		use_power(min(1000, amount_inserted / 100))
 	updateUsrDialog()
 
@@ -161,11 +163,12 @@
 			var/coeff = (is_stack ? 1 : prod_coeff) //stacks are unaffected by production coefficient
 			var/metal_cost = being_built.materials[MAT_METAL]
 			var/glass_cost = being_built.materials[MAT_GLASS]
+			var/platic_cost = being_built.materials[MAT_PLASTIC]
 
 			var/power = max(2000, (metal_cost+glass_cost)*multiplier/5)
 
 			GET_COMPONENT(materials, /datum/component/material_container)
-			if((materials.amount(MAT_METAL) >= metal_cost*multiplier*coeff) && (materials.amount(MAT_GLASS) >= glass_cost*multiplier*coeff))
+			if((materials.amount(MAT_METAL) >= metal_cost*multiplier*coeff) && (materials.amount(MAT_GLASS) >= glass_cost*multiplier*coeff) && (materials.amount(MAT_PLASTIC)))
 				busy = TRUE
 				use_power(power)
 				icon_state = "autolathe_n"
@@ -191,7 +194,7 @@
 	GET_COMPONENT(materials, /datum/component/material_container)
 	var/atom/A = drop_location()
 	use_power(power)
-	var/list/materials_used = list(MAT_METAL=metal_cost*coeff*multiplier, MAT_GLASS=glass_cost*coeff*multiplier)
+	var/list/materials_used = list(MAT_METAL=metal_cost*coeff*multiplier, MAT_GLASS=glass_cost*coeff*multiplier, MAT_PLASTIC=plastic_cost*coeff*multiplier)
 	materials.use_amount(materials_used)
 
 	if(is_stack)
@@ -327,6 +330,7 @@
 		return FALSE
 	if(D.materials[MAT_GLASS] && (materials.amount(MAT_GLASS) < (D.materials[MAT_GLASS] * coeff * amount)))
 		return FALSE
+	if(D.materials[MAT_PLASTIC] && (materials.amount(MAT_PLASTIC) < (D.materials[MAT_PLASTIC] * coeff * amount)))
 	return TRUE
 
 /obj/machinery/autolathe/proc/get_design_cost(datum/design/D)
