@@ -1393,3 +1393,12 @@
 
 /obj/item/toy/dummy/GetVoice()
 	return doll_name
+
+//Zeke plushie
+/obj/item/toy/zeke_plushie
+    name = "Zeke Plushie"
+    desc = "Its a greytider with a huge Afro"
+    icon = "icons/obj/plushies/zeke_plushie.dmi"
+    w_class = WEIGHT_CLASS_SMALL
+    resistance_flags = FLAMMABLE
+    var/list/squeak_override = sound/items/syringeproj.ogg
