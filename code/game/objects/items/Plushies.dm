@@ -1,4 +1,4 @@
-/obj/item/toy/zeke_plushie
+/obj/item/toy/plush/zeke_plushie
     name = "Zeke Plushie"
     desc = "Its a greytider with a huge Afro"
     icon = "icons/obj/plushies/zeke_plushie.dmi"
