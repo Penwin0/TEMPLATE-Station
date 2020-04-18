@@ -983,5 +983,3 @@
     w_class = WEIGHT_CLASS_SMALL
     resistance_flags = FLAMMABLE
     var/list/squeak_override = "sound/items/syringeproj.ogg"
-	var/stuffed = TRUE 
-	var/obj/item/grenade/grenade 
